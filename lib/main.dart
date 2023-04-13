@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.white,
                             thickness: 2,
                           ),
+                          //criar http.get localhost/video
                           Expanded(
                               child: Container(
                             color: Colors.black,
