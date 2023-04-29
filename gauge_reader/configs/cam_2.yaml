@@ -1,0 +1,6 @@
+- max_angle: '260'
+  max_value: '160'
+  min_angle: '100'
+  min_value: '0'
+  name: cam_2
+  units: C
