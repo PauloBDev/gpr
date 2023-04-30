@@ -25,12 +25,12 @@ def calibrate_gauge(filename,folder_path):
 
     img = cv2.imread(folder_path + "/" + filename + ".jpg")
     height, width = img.shape[:2]
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  #convert to gray
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20, np.array([]), 100, 50, int(height*0.35), int(height*0.48))
     a, b, c = circles.shape
     x,y,r = avg_circles(circles, b)
-    cv2.circle(img, (x, y), r, (0, 0, 255), 3, cv2.LINE_AA)  # draw circle
-    cv2.circle(img, (x, y), 2, (0, 255, 0), 3, cv2.LINE_AA)  # draw center of circle
+    cv2.circle(img, (x, y), r, (0, 0, 255), 3, cv2.LINE_AA)
+    cv2.circle(img, (x, y), 2, (0, 255, 0), 3, cv2.LINE_AA)
     separation = 10.0 #DEGREES
     interval = int(360 / separation)
     p1 = np.zeros((interval,2))
@@ -51,7 +51,7 @@ def calibrate_gauge(filename,folder_path):
                 p_text[i][j] = x - text_offset_x + 1.2 * r * np.cos((separation) * (i+9) * 3.14 / 180) #point for text labels, i+9 rotates the labels by 90 degrees
             else:
                 p2[i][j] = y + r * np.sin(separation * i * 3.14 / 180)
-                p_text[i][j] = y + text_offset_y + 1.2* r * np.sin((separation) * (i+9) * 3.14 / 180)  # point for text labels, i+9 rotates the labels by 90 degrees
+                p_text[i][j] = y + text_offset_y + 1.2* r * np.sin((separation) * (i+9) * 3.14 / 180)  #point for text labels, i+9 rotates the labels by 90 degrees
 
     for i in range(0,interval):
         cv2.line(img, (int(p1[i][0]), int(p1[i][1])), (int(p2[i][0]), int(p2[i][1])),(0, 255, 0), 2)
