@@ -1,4 +1,4 @@
-TODO:</br>
+<b>TODO:</b></br>
 	- Review valve configs</br>
 	- Integrate components with valve_reader code</br>
 	- Get valve simulator to run on phone(control it via dashboard on pc with node-red)</br>
