@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import csv
 import cv2
 import time
 import argparse
@@ -7,6 +8,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 from hough_transforms import h_transforms
 
+# ===== VALVE_CONFIG =====
 min_angle = input('min_angle: ')
 max_angle = input('max_angle: ')
 min_value = input('min_val: ')
@@ -21,15 +23,20 @@ try:
 	for frame in camera.capture_continuous(raw_capture, format="bgr", use_video_port=True):
 				img = frame.array
 				cv2.imshow('Analog Gauge Reader', img)
+				val = 0
 
 				try:
 					t = strftime("%d-%m-%Y | %H:%M:%S", gmtime())
 					val, units = h_transforms(img, min_angle, max_angle, min_value, max_value, units)
 					print("[%s] Current reading: %s %s" % (t, ("%.2f" % val), units))
+
+					with open('logging.csv', 'a', newline="") as f:
+						csv.writer(f).writerow([t, round(val, 2), danger_zone])
+						f.close()
 					
 				except:
 					print("[{timestamp}] No valve detected.".format(timestamp=t))
-			
+
 				if(cv2.waitKey(30) & 0xff == ord('q')):
 					print('\n >>> Exiting...\n')
 					break
