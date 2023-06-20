@@ -11,6 +11,7 @@ min_angle = input('min_angle: ')
 max_angle = input('max_angle: ')
 min_value = input('min_val: ')
 max_value = input('max_val: ')
+danger_zone = input('danger_zone: ')
 units = input('units: ')
 
 try:
